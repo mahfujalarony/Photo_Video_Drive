@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Navbar from '@/Components/Navbar';
 import Home from '@/Components/Home';
@@ -8,9 +8,61 @@ import MyFiles from '@/Components/MyFiles';
 import Photos from '@/Components/Photos';
 import Videos from '@/Components/Videos';
 
+interface User {
+  name: string;
+  email: string;
+  id: string;
+  userId: string;
+}
+
 const Page = () => {
+
   // State to track which component to show
   const [activeComponent, setActiveComponent] = useState('home');
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
+
+
+  // Function to handle user login status
+const checkLoginStatus = async () => {
+  try {
+    const response = await fetch('/api/isLogin');
+    const data = await response.json();
+    if (data.isLoggedIn) {
+      setUser(data.user);
+    } else {
+      setUser(null);
+    }
+  } catch (error) {
+    console.error("Login check failed:", error);
+    setUser(null);
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+if (loading) {
+  return (
+    <div className="w-full h-screen flex justify-center items-center">
+      <p className="text-lg text-gray-600 animate-pulse">Checking login status...</p>
+    </div>
+  );
+}
+
+if (!user) {
+  return (
+    <div className="w-full h-screen flex justify-center items-center">
+      <h1 className="text-xl text-red-500 font-semibold">Please log in to access this page.</h1>
+    </div>
+  );
+}
+
 
   // Function to render the active component
   const renderActiveComponent = () => {
@@ -94,10 +146,8 @@ const Page = () => {
           <h1 className='text-2xl lg:text-4xl font-bold mb-4 text-gray-800'>
             Welcome to Your Dashboard
           </h1>
-          <p className='text-gray-600 text-base lg:text-lg mb-6'>
-            Here you can manage your files, videos, and photos.
-          </p>
-          
+          <p> name is : {user?.name}  , email is : {user?.email} , user.id is : {user?.userId}</p>
+
           {/* Dynamic content based on selected menu */}
           <div className="mt-6 lg:mt-8">
             {renderActiveComponent()}

@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
             return NextResponse.json({ error: "Invalid password" }, { status: 401 });
         }
 
-        const token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET || "jwt_secret", { expiresIn: "7d" });
+        const token = jwt.sign({ userId: user.id, email: user.email, name: user.name }, process.env.JWT_SECRET || "jwt_secret", { expiresIn: "7d" });
         // Set the token in cookies
         const cookieStore = await cookies();
         cookieStore.set({
