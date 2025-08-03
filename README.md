@@ -22,4 +22,4 @@ This is a cloud drive system where you can store photos, videos, files, and othe
 
 ## Screenshots
 
-![Screenshot](https://raw.githubusercontent.com/mahfujalarony/your-repo-name/main/public/s/s.png)
+![Screenshot 1](/public/s/s.png)
