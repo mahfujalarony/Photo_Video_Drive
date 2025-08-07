@@ -59,7 +59,7 @@ const Navbar = () => {
         setShowNotification(false);
       }, 3000);
       
-    } catch (error) {
+    } catch {
       setCurrentFileName('Upload Failed!');
       setTimeout(() => setShowNotification(false), 5000);
     } finally {

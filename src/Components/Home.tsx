@@ -7,7 +7,22 @@ const Home = () => {
   const [isDragging, setIsDragging] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [uploadedFiles, setUploadedFiles] = useState<any[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+
+  // Get file category based on file type
+  const getFileCategory = (file: File): string => {
+    const type = file.type;
+    if (type.startsWith('image/')) return 'image';
+    if (type.startsWith('video/')) return 'video';
+    if (type.startsWith('audio/')) return 'audio';
+    if (type.includes('pdf') || type.includes('document') || type.includes('text')) return 'document';
+    return 'other';
+  };
+
+  // Get file extension from filename
+  const getFileExtension = (filename: string): string => {
+    return filename.split('.').pop()?.toUpperCase() || 'FILE';
+  };
 
   // Handle file drop
   const handleDrop = (e: React.DragEvent) => {
@@ -177,7 +192,7 @@ const Home = () => {
                 <input
                   type="file"
                   multiple
-                  // @ts-ignore
+                  // @ts-expect-error - webkitdirectory is not in standard HTML types
                   webkitdirectory=""
                   className="hidden"
                   onChange={handleFolderInput}
@@ -300,29 +315,24 @@ const Home = () => {
                   <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                     <div className="flex items-center gap-3">
                       <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                        file.category === 'image' ? 'bg-purple-100' :
-                        file.category === 'video' ? 'bg-red-100' :
-                        file.category === 'document' ? 'bg-blue-100' : 'bg-gray-100'
+                        getFileCategory(file) === 'image' ? 'bg-purple-100' :
+                        getFileCategory(file) === 'video' ? 'bg-red-100' :
+                        getFileCategory(file) === 'document' ? 'bg-blue-100' : 'bg-gray-100'
                       }`}>
                         <span className="text-xs font-bold text-gray-600">
-                          {file.extension?.toUpperCase() || 'FILE'}
+                          {getFileExtension(file.name)}
                         </span>
                       </div>
                       <div>
                         <p className="font-semibold text-gray-800">{file.name}</p>
                         <p className="text-sm text-gray-600">
-                          {(file.size / 1024 / 1024).toFixed(2)} MB • {file.uploadTime}
+                          {(file.size / 1024 / 1024).toFixed(2)} MB • {new Date(file.lastModified).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
-                    <a 
-                      href={file.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 font-semibold"
-                    >
-                      View
-                    </a>
+                    <span className="text-sm text-green-600 font-semibold">
+                      Uploaded ✓
+                    </span>
                   </div>
                 ))}
               </div>

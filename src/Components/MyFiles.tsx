@@ -27,7 +27,6 @@ const MyFiles = () => {
   const [uploading, setUploading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'name' | 'size' | 'date'>('date');
-  const [filterBy, setFilterBy] = useState<'all' | 'image' | 'video' | 'document' | 'audio' | 'other'>('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('list');
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number; file: FileItem } | null>(null);
   const contextMenuRef = useRef<HTMLDivElement>(null);
@@ -154,10 +153,6 @@ const MyFiles = () => {
 
   // Filter and sort files
   const filteredAndSortedFiles = files
-    .filter(file => {
-      if (filterBy === 'all') return true;
-      return getCorrectCategory(file) === filterBy;
-    })
     .filter(file => 
       file.metadata?.originalName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       file.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -195,7 +190,7 @@ const MyFiles = () => {
         hour: '2-digit',
         minute: '2-digit'
       });
-    } catch (error) {
+    } catch {
       return 'Invalid date';
     }
   };
@@ -315,7 +310,7 @@ const MyFiles = () => {
           {/* Sort By */}
           <select
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as any)}
+            onChange={(e) => setSortBy(e.target.value as 'name' | 'size' | 'date')}
             className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
             <option value="date">Sort by Date</option>
@@ -592,8 +587,8 @@ const MyFiles = () => {
           </div>
           <h3 className="text-xl font-semibold text-gray-800 mb-2">No files found</h3>
           <p className="text-gray-600 mb-6">
-            {searchTerm || filterBy !== 'all' 
-              ? 'Try adjusting your search or filter criteria' 
+            {searchTerm 
+              ? 'Try adjusting your search criteria' 
               : 'Upload your first file to get started'
             }
           </p>
@@ -742,7 +737,7 @@ const MyFiles = () => {
                         style={{ minHeight: '500px' }}
                       />
                       <p className="text-sm text-gray-500 mt-2 text-center">
-                        If PDF doesn't load, <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">click here to open in new tab</a>
+                        If PDF doesn&apos;t load, <a href={url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">click here to open in new tab</a>
                       </p>
                     </div>
                   );
@@ -834,7 +829,7 @@ const MyFiles = () => {
                           <p className="text-sm text-blue-700 font-medium mb-2">💡 Suggestions:</p>
                           <ul className="text-sm text-blue-600 space-y-1">
                             <li>• Download the file to view it with appropriate software</li>
-                            <li>• Use "Open in New Tab" to view in browser if supported</li>
+                            <li>• Use &quot;Open in New Tab&quot; to view in browser if supported</li>
                             {correctCategory === 'document' && (
                               <li>• Try converting to PDF for better web preview</li>
                             )}

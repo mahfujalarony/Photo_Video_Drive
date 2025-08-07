@@ -36,7 +36,7 @@ export default function Page() {
     resolver: zodResolver(loginPage ? loginSchema : signupSchema),
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: SignupFormData | LoginFormData) => {
     setIsLoading(true);
     setMessage('');
     try {
@@ -63,15 +63,16 @@ export default function Page() {
         }
       } else {
         // Signup logic
+        const signupData = data as SignupFormData;
         const response = await fetch('/api/users/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            name: data.name,
-            email: data.email,
-            password: data.password,
+            name: signupData.name,
+            email: signupData.email,
+            password: signupData.password,
           }),
           credentials: 'include',
         });

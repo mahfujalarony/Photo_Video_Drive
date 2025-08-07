@@ -16,9 +16,9 @@ async function getCurrentUser() {
       return null;
     }
     
-    const decoded = jwt.verify(token.value, process.env.JWT_SECRET || "jwt_secret") as any;
+    const decoded = jwt.verify(token.value, process.env.JWT_SECRET || "jwt_secret") as jwt.JwtPayload;
     return decoded;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

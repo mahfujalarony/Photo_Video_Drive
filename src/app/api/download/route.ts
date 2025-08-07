@@ -12,8 +12,8 @@ async function getCurrentUser() {
     const cookieStore = await cookies();
     const token = cookieStore.get('token');
     if (!token) return null;
-    return jwt.verify(token.value, process.env.JWT_SECRET || "jwt_secret") as any;
-  } catch (error) {
+    return jwt.verify(token.value, process.env.JWT_SECRET || "jwt_secret") as jwt.JwtPayload;
+  } catch {
     return null;
   }
 }
@@ -54,14 +54,14 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ error: 'Failed to download file' }, { status: 500 });
       }
 
-      return new NextResponse(downloadResponse.readableStreamBody as any, {
+      return new NextResponse(downloadResponse.readableStreamBody as unknown as ReadableStream, {
         headers
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Download error:', error);
       return NextResponse.json({ error: 'Failed to download file' }, { status: 500 });
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
