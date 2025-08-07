@@ -20,6 +20,11 @@ This is a cloud drive system where you can store photos, videos, files, and othe
 - Cloud-based storage solution
 - Modern web interface
 
+## Live Link
+
+ **Demo**: [https://statuesque-biscotti-9caf4e.netlify.app/](https://statuesque-biscotti-9caf4e.netlify.app/)
+
+
 ## Screenshots
 
 ![Screenshot 1](/public/s/s.png)
