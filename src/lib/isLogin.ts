@@ -9,7 +9,7 @@ export async function isLogin() {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || "jwt_secret");
     return decoded;
-  } catch (error) {
+  } catch {
     return null;
   }
 }

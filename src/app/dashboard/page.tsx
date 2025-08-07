@@ -81,7 +81,7 @@ if (!user) {
   };
 
   return (
-    <div className='container mx-auto mt-4 px-4'>
+    <div className='container mx-auto mt-4 md:px-4'>
       <Navbar />
 
       <div className='flex flex-col lg:flex-row gap-4 lg:gap-8 mt-4'>
@@ -143,13 +143,8 @@ if (!user) {
 
         {/* Right Section (Main Content) */}
         <div className='right-section w-full lg:w-3/4 p-4 lg:p-8 bg-white rounded-lg shadow-sm'>
-          <h1 className='text-2xl lg:text-4xl font-bold mb-4 text-gray-800'>
-            Welcome to Your Dashboard
-          </h1>
-          <p> name is : {user?.name}  , email is : {user?.email} , user.id is : {user?.userId}</p>
-
-          {/* Dynamic content based on selected menu */}
-          <div className="mt-6 lg:mt-8">
+  
+          <div className="md:mt-6 lg:mt-8">
             {renderActiveComponent()}
           </div>
         </div>
