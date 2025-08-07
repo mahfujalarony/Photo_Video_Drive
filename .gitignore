@@ -40,7 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/src/generated/prisma
+# Prisma
+# /src/generated/prisma (commented out for deployment)
 
 #env
 .env.local
