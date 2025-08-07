@@ -33,7 +33,7 @@ const Photos = () => {
   const [photos, setPhotos] = useState<PhotoFile[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoFile | null>(null);
-  const [uploading, setUploading] = useState(false);
+ // const [uploading, setUploading] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const hydrated = useHydrated();
 
@@ -88,7 +88,7 @@ const Photos = () => {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
-    setUploading(true);
+    //setUploading(true);
 
     try {
       for (const file of files) {
@@ -107,7 +107,7 @@ const Photos = () => {
     } catch (error) {
       console.error('Upload failed:', error);
     } finally {
-      setUploading(false);
+      //setUploading(false);
       e.target.value = '';
     }
   };

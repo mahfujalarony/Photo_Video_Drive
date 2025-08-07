@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 
@@ -96,65 +96,9 @@ const Videos = () => {
     }
   };
 
-  // Videos component এ এই functions গুলো যোগ করুন
 
-// Direct download function using fetch
-const downloadFile = async (video: VideoFile) => {
-  try {
-    const fileName = video.metadata?.originalName || video.name.split('/').pop() || 'video';
-    const downloadUrl = `/api/download?blobName=${encodeURIComponent(video.name)}&fileName=${encodeURIComponent(fileName)}`;
-    
-    // Show loading state (optional)
-    const downloadingBtn = document.querySelector(`[data-download="${video.name}"]`) as HTMLButtonElement;
-    if (downloadingBtn) {
-      downloadingBtn.disabled = true;
-      downloadingBtn.innerHTML = '⬇️ Downloading...';
-    }
 
-    const response = await fetch(downloadUrl);
-    
-    if (!response.ok) {
-      throw new Error(`Download failed: ${response.statusText}`);
-    }
 
-    // Get the blob from response
-    const blob = await response.blob();
-    
-    // Create download link
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = fileName;
-    a.style.display = 'none';
-    
-    document.body.appendChild(a);
-    a.click();
-    
-    // Cleanup
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-
-  } catch (error) {
-    console.error('Download failed:', error);
-    alert('Download failed. Please try again.');
-  } finally {
-    // Reset button state
-    const downloadingBtn = document.querySelector(`[data-download="${video.name}"]`) as HTMLButtonElement;
-    if (downloadingBtn) {
-      downloadingBtn.disabled = false;
-      downloadingBtn.innerHTML = '⬇️ Download';
-    }
-  }
-};
-
-// Alternative: Simple redirect download (easier but less control)
-const downloadFileSimple = (video: VideoFile) => {
-  const fileName = video.metadata?.originalName || video.name.split('/').pop() || 'video';
-  const downloadUrl = `/api/download?blobName=${encodeURIComponent(video.name)}&fileName=${encodeURIComponent(fileName)}`;
-  
-  // Open in new tab to trigger download
-  window.open(downloadUrl, '_blank');
-};
 
   // Format file size
   const formatFileSize = (bytes: number) => {
