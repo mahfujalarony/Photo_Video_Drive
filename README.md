@@ -1,28 +1,26 @@
-# Cloud Drive Storage System
+# Cloud Drive App
 
-This is a cloud drive system where you can store photos, videos, files, and other data. Please note that this project is not yet completely finished.
+This is a cloud drive application where users can store, view, and download various types of files such as photos, videos, audio, PDFs, and other documents.
+The backend uses Microsoft Azure Blob Storage for file storage and PostgreSQL (hosted on Railway) for user management.
 
-## Tech Stack
+##  Features
+- 📁 Upload and store files (photos, videos, audio, PDFs, documents, etc.)
+- 👀 View files directly from the browser
+- ⬇️ Download stored files
+- 👤 User account management
 
-- **Frontend**: Next.js, Tailwind CSS
-- **Database**: Railway PostgreSQL database
-- **ORM**: Prisma for database integration
-- **Storage**: Microsoft Azure Blob Storage for backend file storage
+## 🛠 Tech Stack
+- **Frontend:** [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/)
+- **Backend Storage:** [Microsoft Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs/)
+- **Database:** PostgreSQL (Hosted on [Railway](https://railway.app/))
 
-## Status
+## 🌐 Live Demo
+[**Click here to visit**](https://statuesque-biscotti-9caf4e.netlify.app/)
 
-⚠️ **Work in Progress** - This project is still under development and not fully complete.
+---
 
-## Features
 
-- File upload and storage
-- Photo and video management
-- Cloud-based storage solution
-- Modern web interface
 
-## Live Link
-
- **Demo**: [https://statuesque-biscotti-9caf4e.netlify.app/](https://statuesque-biscotti-9caf4e.netlify.app/)
 
 
 ## Screenshots
